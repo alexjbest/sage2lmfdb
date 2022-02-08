@@ -1,14 +1,14 @@
 import sys
 import json
-import api_routines
-import lmfdb_api
+import LMFDB2sage.api_routines as api_routines
+import LMFDB2sage.lmfdb_api as lmfdb_api
 
-from ell_lmfdb import EllipticCurve_rational_field_lmfdb
+from LMFDB2sage.ell_lmfdb import EllipticCurve_rational_field_lmfdb
 
-URL_API = lmfdb_api.URL_BASE + 'api/elliptic_curves/curves/?_format=json&'
+URL_API = lmfdb_api.URL_BASE + 'api/ec_curvedata/?_format=json&'
 
 #sage-name, lmfdb-name, lmfdb-data-type
-Translation = [['label', 'label', 'string'],
+Translation = [['label', 'lmfdb_label', 'string'],
                ['degree', 'degree', 'int'],
                ['conductor', 'conductor', 'int'],
                ['torsion_order', 'torsion', 'int'],
@@ -95,15 +95,12 @@ def search(**kwargs):
         print("No searches recognized. No data will be returned.")
         return None
 
-    dbfields = ['label',
+    dbfields = ['lmfdb_label',
                 'degree',
                 'conductor',
-                'xainvs',
+                'ainvs',
                 'torsion',
                 'regulator',
-                'x-coordinaates_of_integral_points',
-                'gens',
-                'lmfdb_label',
                 'rank'
                 ]
     fields = lmfdb_api._get_fields_from_api_page(URL_API, searches, dbfields,

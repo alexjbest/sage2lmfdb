@@ -2,7 +2,7 @@
 Basic lmfdb api, taken from Chris Brady's pylmfdb.
 """
 
-import api_routines
+import LMFDB2sage.api_routines as api_routines
 
 try:
     from six.moves.urllib.request import urlopen
@@ -15,7 +15,7 @@ except:
     raise ImportError('Unable to import json parser')
 
 
-URL_BASE = 'http://beta.lmfdb.org/'
+URL_BASE = 'https://beta.lmfdb.org/'
 
 
 def _get_fields_from_api_page(base_url, requests, db_fields, object_base, **kwargs):
@@ -45,6 +45,7 @@ def _get_fields_from_api_page(base_url, requests, db_fields, object_base, **kwar
         max_count = 10
     while True:
         try:
+            print(full_url)
             page = urlopen(full_url)
             result = json.loads(page.read())
         except:

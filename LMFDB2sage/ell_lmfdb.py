@@ -5,15 +5,13 @@ import ast
 class EllipticCurve_rational_field_lmfdb(EllipticCurve_rational_field):
     def __init__(self,json):
         self._json = json
-        ainvs = ast.literal_eval(json['xainvs'])
+        ainvs = eval(str(json['ainvs']))
         EllipticCurve_rational_field.__init__(self,ainvs)
         if 'conductor' in json:
             # If we wanted to be parallel to sage, we might try to do:
             #self._set_conductor(json['conductor'])
             self._lmfdb_conductor = json['conductor']
             # But this runs much slower.
-        if 'x-coordinates_of_integral_points' in json:
-            self._lmfdb_x_integral_points=ast.literal_eval(json['x-coordinates_of_integral_points'])
         if  'rank' in json:
             # Interestingly, this yields very quick evaluation
             self._set_rank(json['rank'])
@@ -26,8 +24,6 @@ class EllipticCurve_rational_field_lmfdb(EllipticCurve_rational_field):
             self._lmfdb_label = json['lmfdb_label']
         if 'torsion' in json:
             self._set_torsion_order(json['torsion'])
-        if 'regulator' in json:
-            self._lmfdb_regulator=float(json['regulator'])
 
     # With sample documentation note
     def regulator(self,**kwargs):
