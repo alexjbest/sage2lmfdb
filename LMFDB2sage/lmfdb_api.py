@@ -19,8 +19,8 @@ URL_BASE = 'https://beta.lmfdb.org/'
 
 
 def _get_fields_from_api_page(base_url, requests, db_fields, object_base, **kwargs):
-    full_url = base_url + api_routines.api_amp_list(requests) + "&" + \
-               "_fields="+api_routines.api_comma_list(db_fields)
+    full_url = base_url + api_routines.api_amp_list(requests) + "&")
+               #"_fields="+api_routines.api_comma_list(db_fields) also possib
     try:
         offset = int(kwargs['base_item'])
         full_url += "&_offset="+str(offset)
