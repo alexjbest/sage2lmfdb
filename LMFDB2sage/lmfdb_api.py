@@ -3,6 +3,7 @@ Basic lmfdb api, taken from Chris Brady's pylmfdb.
 """
 
 import LMFDB2sage.api_routines as api_routines
+from sage.misc.verbose import verbose, set_verbose, get_verbose
 
 try:
     from six.moves.urllib.request import urlopen
@@ -19,7 +20,7 @@ URL_BASE = 'https://beta.lmfdb.org/'
 
 
 def _get_fields_from_api_page(base_url, requests, db_fields, object_base, **kwargs):
-    full_url = base_url + api_routines.api_amp_list(requests) + "&")
+    full_url = base_url + api_routines.api_amp_list(requests) + "&"
                #"_fields="+api_routines.api_comma_list(db_fields) also possib
     try:
         offset = int(kwargs['base_item'])
@@ -44,8 +45,8 @@ def _get_fields_from_api_page(base_url, requests, db_fields, object_base, **kwar
     except:
         max_count = 10
     while True:
+        verbose(full_url,level=2)
         try:
-            print(full_url)
             page = urlopen(full_url)
             result = json.loads(page.read())
         except:
